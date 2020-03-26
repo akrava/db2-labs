@@ -17,3 +17,6 @@ class List:
 
     def remove(self):
         return self.__redis.lpop(self.__list_name)
+
+    def remove_blocking(self):
+        return self.__redis.blpop(self.__list_name)[1].decode("utf-8")

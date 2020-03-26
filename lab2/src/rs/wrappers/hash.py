@@ -10,7 +10,7 @@ class Hash:
         return self.__redis.hdel(self.__hash_name, key)
 
     def get(self, key: str):
-        return self.__redis.hget(self.__hash_name, key)
+        return self.__redis.hget(self.__hash_name, key).decode("utf-8")
 
     def set(self, key: str, value: str):
         return self.__redis.hset(self.__hash_name, key, value)

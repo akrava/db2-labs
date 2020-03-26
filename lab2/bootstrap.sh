@@ -16,7 +16,9 @@ else
 fi
 
 if [[ $# -eq 1 ]] && ([[ $1 = "--cui" ]] || [[ $1 = "--worker" ]]); then
-   python src/main.py $1
+    python src/main.py $1
+elif [[ $# -eq 3 ]] && [[ $1 = "--simulate" ]]; then
+    python src/simulation.py $2 $3
 else
     echo "No arguments supplied. Need --cui or --worker"
     exit 1

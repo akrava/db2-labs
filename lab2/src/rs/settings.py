@@ -19,6 +19,9 @@ MESSAGE_NEXT_ID_NAME = "message_next_id"
 # prefix for hash of message instances
 MESSAGES_HASH_SET_PREFIX = "message:"
 
+# journal activities Pub/Sub name
+JOURNAL_ACTIVITIES_NAME = "journal_activities"
+
 # list - message queue, which is processing by worker
 MESSAGE_QUEUE_LIST_NAME = "message_queue"
 
@@ -44,5 +47,5 @@ MESSAGE_IDS_BLOCKED_SET_NAME = "messages_blocked"
 MESSAGE_IDS_SEND_SET_NAME = "messages_send"
 
 # set of message ids with status `delivered`
-MESSAGE_IDS_DELIVERED_SET_NAME = "messages_delivered"
+MESSAGE_IDS_DELIVERED_SET_NAME = "git s"
 

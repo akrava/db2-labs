@@ -41,7 +41,7 @@ class LoginForm(npyscreen.FormBaseNew):
                 return
             npyscreen.notify_confirm('Successfully registered %s with username `%s`' %
                                      ('admin' if register_as_admin else 'user', username), title='Result')
-            result = register_as_admin
+            result = client_controller.login_client(username)
 
         if result is True:
             self.parentApp.switchForm("ADMIN")

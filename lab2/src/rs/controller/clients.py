@@ -1,6 +1,9 @@
 import re
 from rs.wrappers.set import Set
-from rs.settings import USERS_SET_NAME, ADMINS_SET_NAME, USERS_ONLINE_SET_NAME
+from rs.wrappers.zset import ZSet
+from rs.wrappers.pub_sub import PubSub
+from rs.settings import USERS_SET_NAME, ADMINS_SET_NAME, USERS_ONLINE_SET_NAME, SPAMERS_ZSET_NAME, \
+    ACTIVE_USERS_ZSET_NAME, JOURNAL_ACTIVITIES_NAME
 
 
 class Clients:
@@ -8,6 +11,9 @@ class Clients:
         self.__users = Set(USERS_SET_NAME)
         self.__admins = Set(ADMINS_SET_NAME)
         self.__online_users = Set(USERS_ONLINE_SET_NAME)
+        self.__active_users_zset = ZSet(ACTIVE_USERS_ZSET_NAME)
+        self.__active_spamers_zset = ZSet(SPAMERS_ZSET_NAME)
+        self.__journal_pub_sub = PubSub(JOURNAL_ACTIVITIES_NAME)
 
     def register_client(self, username: str, is_admin: bool = False):
         if not self.validate_username(username):
@@ -37,10 +43,12 @@ class Clients:
             return True
         elif self.__users.contains(username):
             self.__online_users.add(username)
+            self.__journal_pub_sub.publish("User `%s` login in chat" % username)
             return False
         return None
 
     def logout_user(self, username: str):
+        self.__journal_pub_sub.publish("User `%s` logout from chat" % username)
         self.__online_users.remove(username)
 
     @staticmethod
@@ -52,3 +60,9 @@ class Clients:
 
     def get_all_users_online(self):
         return self.__online_users.get_all()
+
+    def get_active_users(self, n: int):
+        return self.__active_users_zset.get_all_descending(limit=n - 1)
+
+    def get_active_spamers(self, n: int):
+        return self.__active_spamers_zset.get_all_descending(limit=n - 1)
