@@ -13,7 +13,8 @@ class Set:
         return self.__redis.sismember(self.__set_name, value)
 
     def get_all(self):
-        return self.__redis.smembers(self.__set_name)
+        # use SSCAN to iterate when sets are to huge
+        return [x.decode("utf-8") for x in self.__redis.smembers(self.__set_name)]
 
     def remove(self, value: str):
         return self.__redis.srem(self.__set_name, value)

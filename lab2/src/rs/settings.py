@@ -25,6 +25,9 @@ MESSAGE_QUEUE_LIST_NAME = "message_queue"
 # prefix for list of incoming message ids, which belongs to concrete user
 USER_INCOMING_MESSAGES_LIST_PREFIX = "incoming_messages:"
 
+# prefix for set of outcoming message ids, which belongs to concrete user
+USER_OUTCOMING_MESSAGES_SET_PREFIX = "outcoming_messages:"
+
 # set of message ids with status `created`
 MESSAGE_IDS_CREATED_SET_NAME = "messages_created"
 
@@ -41,5 +44,5 @@ MESSAGE_IDS_BLOCKED_SET_NAME = "messages_blocked"
 MESSAGE_IDS_SEND_SET_NAME = "messages_send"
 
 # set of message ids with status `delivered`
-MESSAGE_IDS_DELIVERED_SET_NAME = "messages_created"
+MESSAGE_IDS_DELIVERED_SET_NAME = "messages_delivered"
 

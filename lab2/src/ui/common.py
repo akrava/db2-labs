@@ -5,6 +5,7 @@ from ui.forms.user import UserForm
 from ui.forms.admin import AdminForm
 from ui.forms.login import LoginForm
 from rs.controller.clients import Clients
+from rs.controller.messages import Messages
 
 
 class App(npyscreen.StandardApp):
@@ -15,6 +16,7 @@ class App(npyscreen.StandardApp):
         signal.signal(signal.SIGINT, self.__handle_interrupt_event)
         self.__program_name = " | Lab 2"
         self.client_controller = Clients()
+        self.message_controller = Messages()
         self.current_username = None
 
     def onStart(self):
@@ -25,3 +27,7 @@ class App(npyscreen.StandardApp):
     def __handle_interrupt_event(self, _sig, _frame):
         self.onCleanExit()
         sys.exit(0)
+
+    def onCleanExit(self):
+        if isinstance(self.current_username, str):
+            self.client_controller.logout_user(self.current_username)

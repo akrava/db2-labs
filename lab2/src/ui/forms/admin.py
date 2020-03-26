@@ -1,5 +1,5 @@
 import npyscreen
-from ui.forms.list_items import ListItemBox
+from ui.widgets.list_items import ListItemBox
 
 
 class AdminForm(npyscreen.FormBaseNew):
@@ -22,8 +22,7 @@ class AdminForm(npyscreen.FormBaseNew):
         y, x = self.useable_space()
         box = self.add(ListItemBox, name="Users online", relx=1,
                        width=x // 2 - 1, rely=y // 2, height=y // 2 - 1)
-        box.values = ["Hello", "This is a Test", "This is another test", "And here is another line",
-                      "asdjasd fasdfdfajsd as dfgasjdfgashfdgasdjfasdfafa  fasdfgdf adfa sdf sdf asdf dfadfas fasd fa df adf asdfa sfadf adfasdfasdf asdf asdfasdfasdf asdf asf asd "]
+        box.values = self.parentApp.client_controller.get_all_users_online()
         box.footer = "Total users: %i" % len(box.values)
 
     def __draw_n_input(self):

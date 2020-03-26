@@ -46,3 +46,9 @@ class Clients:
     @staticmethod
     def validate_username(username: str):
         return re.match("^[a-zA-Z0-9_]{4,}$", username)
+
+    def get_all_users(self):
+        return self.__users.get_all()
+
+    def get_all_users_online(self):
+        return self.__online_users.get_all()

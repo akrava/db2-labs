@@ -26,7 +26,7 @@ class LoginForm(npyscreen.FormBaseNew):
             npyscreen.notify_confirm("Username is not valid: use only `a-zA-Z0-9_`, "
                                      "minimal length is 4", title='Error')
             return
-        
+
         result = client_controller.login_client(username)
         if result is None:
             message_to_display = "Such client with username `%s` hasn't been registered yet. " \
@@ -46,4 +46,6 @@ class LoginForm(npyscreen.FormBaseNew):
         if result is True:
             self.parentApp.switchForm("ADMIN")
         else:
+            self.parentApp.current_username = username
+            self.parentApp.getForm('USER').username_was_set_hook(username)
             self.parentApp.switchForm("USER")

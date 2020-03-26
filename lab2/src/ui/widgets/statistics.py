@@ -6,6 +6,7 @@ class UserMessagesStatistics(npyscreen.BoxTitle):
     _contained_widget = npyscreen.MultiSelect
 
     def __init__(self, screen, contained_widget_arguments=None, *args, **keywords):
+        self.__options_changed = contained_widget_arguments['handler']
         self._my_widgets = []
         super().__init__(screen, contained_widget_arguments, *args, **keywords)
         self.entry_widget = weakref.proxy(self._my_widgets[1])
@@ -35,5 +36,6 @@ class UserMessagesStatistics(npyscreen.BoxTitle):
 
     def when_value_edited(self):
         selected_indexes = self.value
-        self._my_widgets[2].value = "Total: %i" % len(selected_indexes)
+        count = self.__options_changed(selected_indexes)
+        self._my_widgets[2].value = "Total: %i" % count
         self._my_widgets[2].update()
