@@ -15,4 +15,9 @@ else
     source venv/bin/activate
 fi
 
-python src/main.py
+if [[ $# -eq 1 ]] && ([[ $1 = "--cui" ]] || [[ $1 = "--worker" ]]); then
+   python src/main.py $1
+else
+    echo "No arguments supplied. Need --cui or --worker"
+    exit 1
+fi

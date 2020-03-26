@@ -1,3 +1,4 @@
+import re
 from rs.wrappers.set import Set
 from rs.settings import USERS_SET_NAME, ADMINS_SET_NAME, USERS_ONLINE_SET_NAME
 
@@ -9,6 +10,8 @@ class Clients:
         self.__online_users = Set(USERS_ONLINE_SET_NAME)
 
     def register_client(self, username: str, is_admin: bool = False):
+        if not self.validate_username(username):
+            raise Exception("Username is not valid: use only `a-zA-Z0-9_`, minimal length is 4")
         target_set = self.__users
         set_to_check = self.__admins
         if is_admin:
@@ -39,3 +42,7 @@ class Clients:
 
     def logout_user(self, username: str):
         self.__online_users.remove(username)
+
+    @staticmethod
+    def validate_username(username: str):
+        return re.match("^[a-zA-Z0-9_]{4,}$", username)
